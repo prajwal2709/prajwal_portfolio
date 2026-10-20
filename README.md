@@ -24,4 +24,4 @@ Cloudflare's root-level `functions/api/` directory provides `/api/presence` and 
 - `functions/api/` — the two Pages Functions used by the counters.
 - `schema.sql` — D1 schema.
 
-The FastAPI files at the repository root are not part of the Cloudflare Pages deployment. The live portfolio does not call them.
+The FastAPI files at the repository root are not part of the Cloudflare Pages deployment. The live portfolio does not call them. Their Python dependencies are kept in `requirements-api.txt` and installed only by the root Dockerfile; keeping the static Pages project free of a root `requirements.txt` prevents automatic Python dependency installation during its build.
