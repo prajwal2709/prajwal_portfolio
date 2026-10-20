@@ -1,79 +1,27 @@
----
-title: Prajwal Portfolio API
-sdk: docker
-app_port: 7860
----
-
 # Prajwal's portfolio
 
-This repository contains the portfolio website in `site/` and its FastAPI backend at the repository root.
+Static portfolio hosted on Cloudflare Pages, with Cloudflare Pages Functions and a D1 database for the shared heart total and live viewer count. The deployed page does not call an AI provider or require API keys.
 
-## Deploy the backend to Hugging Face Spaces
+## Deploy on Cloudflare Pages
 
-1. Create a Docker Space and upload this repository's backend files, including `Dockerfile`, `main.py`, `rag.py`, `ingest.py`, `requirements.txt`, `knowledge/`, and `model/`.
-2. In Space settings, add `OPENROUTER_API_KEY` as a secret if you want live chat. The backend URL will be `https://<user>-<space>.hf.space`.
-3. To preserve heart totals across Space restarts, attach a writable Storage Bucket mounted at `/data` and set `STATS_DB_PATH=/data/portfolio_stats.sqlite3`. Without persistent storage, local SQLite data may reset when the Space restarts.
+1. In Cloudflare, create a D1 database named `prajwal-portfolio-stats`.
+2. Open the database's SQL console, paste in `schema.sql`, and run it.
+3. Create a Pages project from the `prajwal2709/prajwal_portfolio` GitHub repository. Set the project root to `/`, build command to `exit 0`, and build output directory to `site`.
+4. In the Pages project, open **Settings → Bindings → Add → D1 database binding**. Set the variable name to `DB` and select `prajwal-portfolio-stats`.
+5. Save and redeploy the Pages project so the binding is available to the Functions.
 
-Hugging Face serves the API on that Space URL. The Dockerfile runs FastAPI on port `7860`.
+Cloudflare's root-level `functions/api/` directory provides `/api/presence` and `/api/appreciation`. The `site/_routes.json` file limits Functions to `/api/*`, leaving the portfolio files served as static assets.
 
-## Deploy the website to Cloudflare Pages
+## Counters
 
-1. Connect this GitHub repository to Cloudflare Pages.
-2. Use the repository root as the project root, set the build command to `exit 0`, and set the build output directory to `site`.
-3. After deploying, copy the public Pages URL from the Cloudflare dashboard. Set the backend's `ALLOWED_ORIGINS` variable to this exact URL.
-4. Edit `site/index.html` and set the `API` variable to the Hugging Face Space URL, for example `https://<user>-<space>.hf.space`. Push that update; Cloudflare Pages will redeploy.
+- Viewer count is the number of browser IDs that sent a heartbeat in the last 90 seconds. The page sends a heartbeat every 30 seconds.
+- Each browser can add or remove one heart. Its random ID is stored in that browser's local storage; the counters do not save IP addresses.
+- The database binding must be named `DB`, and the tables and index are created by `schema.sql`.
 
-The `site/` folder contains the home page, screenshots, and resume. The old `prajwal-pixel-portfolio-selfhost.html` URL redirects to `site/index.html` for local use.
+## Repository layout
 
-## API endpoints
+- `site/` — portfolio page, images, resume, and Pages routing config.
+- `functions/api/` — the two Pages Functions used by the counters.
+- `schema.sql` — D1 schema.
 
-- `POST /predict` – upload a leaf image, get the crop disease prediction from YOUR MobileNetV2 model
-- `POST /chat` – question in, answer out, retrieved from YOUR documents in ChromaDB (RAG) and generated via OpenRouter
-- `POST /presence` – refresh an anonymous visitor heartbeat and return active viewers and appreciation totals
-- `POST /appreciation` – toggle one appreciation per browser
-- `GET /health` – quick status check
-
-## Add the crop model
-Copy these into `model/`:
-- `crop_model.keras` – your trained model (`model.save("crop_model.keras")`)
-- `classes.json` – class names in the SAME order as training, e.g. `["Apple Scab Leaf", "..."]`
-
-Preprocessing: the code uses `mobilenet_v2.preprocess_input` at 224x224. If your model already
-contains a Rescaling/preprocess layer, or you trained with `/255`, change that line in `main.py`
-so it matches training. Mismatched preprocessing is the most common cause of bad predictions.
-
-## Add knowledge for RAG
-Put `.md` or `.txt` files in `knowledge/` (resume facts, project READMEs, blog posts).
-`knowledge/profile.md` is pre-filled from your resume. Check it, then add more.
-
-## Run locally
-```bash
-python3 -m venv .venv && source .venv/bin/activate  # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-cp .env.example .env                                 # then edit values
-export $(grep -v '^#' .env | xargs)                  # Windows: set the variables manually
-python ingest.py                                     # builds the ChromaDB index
-uvicorn main:app --reload --port 8000
-```
-Test: open http://localhost:8000/docs and try both endpoints.
-
-To run the portfolio page against the local API, start the backend with the local UI origins allowed:
-```bash
-ALLOWED_ORIGINS=http://127.0.0.1:8080,http://localhost:8080 uvicorn main:app --reload --port 8000
-```
-In a second terminal, from this directory, serve the page:
-```bash
-python -m http.server 8080
-```
-Open http://127.0.0.1:8080/prajwal-pixel-portfolio-selfhost.html or http://127.0.0.1:8080/site/. The page uses the local API automatically on localhost.
-
-Live chat requires a valid `OPENROUTER_API_KEY` in `.env`; otherwise the page uses its built-in answers. Crop prediction requires `model/crop_model.keras` and `model/classes.json` as described above. Visitor counts show browsers that sent a heartbeat in the last 90 seconds. Appreciation is one toggleable heart per browser, identified by a random ID saved in that browser's local storage; no IP address is saved for these counters.
-
-Never commit your `.env` or API key.
-
-## Notes
-- Built-in rate limit: 20 requests per IP per minute (edit `RATE_LIMIT` in `main.py`).
-- Uploads are limited to 5 MB and must be images.
-- After editing `knowledge/`, run `python ingest.py` again (Spaces re-runs it on rebuild).
-- A Space's local disk is temporary unless persistent storage is attached; the viewer count tracks browsers active in the last 90 seconds.
-- This repository currently has `model/classes.json.example` but no trained `model/crop_model.keras` or `model/classes.json`; add both files to enable crop prediction.
+The FastAPI files at the repository root are not part of the Cloudflare Pages deployment. The live portfolio does not call them.
