@@ -4,6 +4,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Prajwal – AI Engineer & Software Developer</title>
+<meta name="description" content="Portfolio of Prajwal Deshpande, AI engineer and software developer. Explore work in practical AI, multimodal search, crop disease detection, and intelligent agents.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Prajwal – AI Engineer &amp; Software Developer">
+<meta property="og:description" content="Explore Prajwal Deshpande’s work in practical AI, multimodal search, crop disease detection, and intelligent agents.">
+<meta property="og:url" content="https://prajwal-portfolio.pd613868.workers.dev/">
+<meta property="og:image" content="https://prajwal-portfolio.pd613868.workers.dev/social-preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Pixel-art portfolio preview for Prajwal Deshpande, AI engineer and software developer">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Prajwal – AI Engineer &amp; Software Developer">
+<meta name="twitter:description" content="Explore projects in practical AI, multimodal search, and intelligent agents.">
+<meta name="twitter:image" content="https://prajwal-portfolio.pd613868.workers.dev/social-preview.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
 <style>
@@ -38,7 +52,8 @@ h1 span{color:var(--gold)}
 .hey{font-size:30px;color:#fff;text-shadow:2px 2px 0 #1b1b2b}
 .chat{max-width:760px;margin:26px auto 0;padding:14px;text-align:left}
 #log{min-height:70px;max-height:230px;overflow:auto;font-size:25px;line-height:1.25;padding:4px 6px 10px}
-#log p{margin:6px 0}.me{color:var(--accent)}
+#log p{margin:6px 0;white-space:pre-line;overflow-wrap:anywhere}.me{color:var(--accent)}
+#log a{color:var(--accent);overflow-wrap:anywhere}.followups{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}.followup{font:inherit;font-size:19px;color:var(--ink);background:var(--panel);border:3px solid var(--edge);padding:3px 8px;cursor:pointer}.followup:hover{background:var(--gold)}
 .row{display:flex;gap:10px}
 .row input{flex:1;min-width:0;height:52px;font:inherit;font-size:24px;padding:0 14px;color:var(--ink);background:rgba(255,255,255,.55);border:4px solid var(--edge);outline:0}
 .row input:focus{background:#fff;color:#2b2118}
@@ -94,7 +109,7 @@ header:before{height:100%;background:radial-gradient(ellipse at 50% 50%,rgba(10,
 :root[data-theme="dark"] .proj:after{content:"";position:absolute;right:14px;bottom:14px;width:12px;height:12px;background:#ffd86b;box-shadow:-18px 0 #ffd86b,0 0 14px 3px rgba(255,216,107,.55)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #dusk{display:none}:root:not([data-theme="light"]) #sun{background:#e8ecff;box-shadow:inset -16px 10px 0 -6px #c9d0f5,inset 14px -14px 0 -9px #c9d0f5,0 0 0 8px #aeb8ee,0 0 80px 26px rgba(170,185,255,.5)}:root:not([data-theme="light"]) .proj:after{content:"";position:absolute;right:14px;bottom:14px;width:12px;height:12px;background:#ffd86b;box-shadow:-18px 0 #ffd86b,0 0 14px 3px rgba(255,216,107,.55)}}
 body{font-size:24px;line-height:1.25}
-.proj{font-size:24px;line-height:1.25}.proj h3{font-size:14px}.hey{font-size:28px}
+.proj{font-size:24px;line-height:1.25}.proj h3{font-size:14px}.proj p{margin:8px 0}.proj code{font-size:.82em;overflow-wrap:anywhere}.status{font:inherit;font-size:.72em;border:2px solid currentColor;padding:2px 7px;vertical-align:middle}.hey{font-size:28px}
 .divider{height:28px;margin:56px 0 -24px;border:4px solid var(--edge);background:repeating-linear-gradient(90deg,#5fa83e 0 40px,#559a37 40px 80px) top/100% 12px no-repeat,repeating-linear-gradient(90deg,#8b5a2e 0 40px,#7a4e27 40px 80px) bottom/100% 12px no-repeat}
 #menu{display:none}
 #totop{position:fixed;right:16px;bottom:calc(env(safe-area-inset-bottom,0px) + 16px);z-index:9;display:none}
@@ -167,6 +182,7 @@ header:before{content:"";position:absolute;inset:0 -6% auto;height:75%;backgroun
 <div class="engagement" aria-label="Portfolio visitor activity">
 <div class="live-status" role="status"><span class="live-dot" aria-hidden="true"></span><span class="stat-count" id="watchCount" aria-live="polite">—</span><span>viewing now</span></div>
 <button class="heart-btn" id="heartBtn" type="button" aria-pressed="false"><span class="heart-icon" aria-hidden="true">♥</span><span id="heartLabel">Send appreciation</span><span class="stat-count" id="heartCount" aria-live="polite">—</span></button>
+<p id="statsNotice" hidden>Live visitor counts and appreciation are available on the Cloudflare hosted site.</p>
 </div>
 <div class="hey" style="font-size:22px">Or ask me anything below. Tip: press 1–5 to jump around.</div>
 <div class="chat panel">
@@ -174,29 +190,33 @@ header:before{content:"";position:absolute;inset:0 -6% auto;height:75%;backgroun
 <div class="row"><input id="q" aria-label="Ask about my work" placeholder="Ask me anything…"><button class="go" id="send" aria-label="Send">&gt;</button></div>
 </div>
 <div class="topics">
-<button class="topic panel" data-q="multimodal rag"><b>Multimodal RAG</b>PDF text + image retrieval</button>
-<button class="topic panel" data-q="crop disease"><b>Crop Disease Detection</b>PlantDoc · MobileNetV2</button>
-<button class="topic panel" data-q="wedding planner"><b>AI Wedding Planner</b>LangChain · multi-agent</button>
-<button class="topic panel" data-q="open source"><b>Open source</b>Two merged Kestra plugin PRs</button>
-<button class="topic panel" data-q="tech stack"><b>Tech stack</b>Tools across my projects</button>
+<button class="topic panel" data-q="What are your strongest AI projects?"><b>Strongest projects</b>Completed work and current status</button>
+<button class="topic panel" data-q="Explain the Multimodal RAG architecture."><b>Multimodal RAG</b>PDF text + image retrieval</button>
+<button class="topic panel" data-q="What is GraphRAG, and what is its current status?"><b>GraphRAG</b>Neo4j · in progress</button>
+<button class="topic panel" data-q="Explain the AI Voice Study Mentor."><b>Voice Study Mentor</b>Speech · retrieval · speech</button>
+<button class="topic panel" data-q="Which Kestra contributions have you merged?"><b>Open source</b>Two merged Kestra plugin PRs</button>
 </div>
 </header>
 
 <section id="work" class="reveal">
 <h2 class="px">Quests</h2>
 <div class="grid">
-<div class="panel proj"><div class="thumb"><img src="images/crop-disease-detection.png" alt="Crop Doctor app showing leaf capture, disease analysis, and treatment steps"></div><h3 class="px">Crop Disease Detection</h3>Identify crop diseases from leaf images with a MobileNetV2 model trained on PlantDoc. React app with a Flask prediction API; 95.05% test accuracy.<br><span class="tag">TensorFlow</span><span class="tag">MobileNetV2</span><span class="tag">Flask</span><span class="tag">React</span><div class="card-act"><span class="btn off" aria-disabled="true">Demo <span class="badge">soon</span></span><a class="btn" href="https://github.com/prajwal2709/crop-disease-detection" target="_blank" rel="noopener">Code</a></div></div>
-<div class="panel proj"><div class="thumb rag-preview"><img class="shot-light" src="images/multimodal-rag-light.png" alt="DocuLens document reader and evidence connections in light theme"><img class="shot-dark" src="images/multimodal-rag-dark.png" alt="DocuLens document reader and evidence connections in dark theme"></div><h3 class="px">Multimodal RAG</h3>Ask questions over PDFs and get answers grounded in both text and images.<br><span class="tag">CLIP</span><span class="tag">ChromaDB</span><span class="tag">OpenRouter</span><div class="card-act"><span class="btn off" aria-disabled="true">Demo <span class="badge">soon</span></span><a class="btn" href="https://github.com/prajwal2709/MultiModal_Rag" target="_blank" rel="noopener">Code</a></div></div>
-<div class="panel proj"><div class="thumb"><img src="images/ai-wedding-planner.png" alt="Multi-Agent Wedding Planner app with wedding brief and planning dashboard"></div><h3 class="px">AI Wedding Planner</h3>A research-assisted planning workspace that coordinates a LangChain planner with two Tavily-powered research agents to create tailored wedding plans you can download as Markdown.<br><span class="tag">LangChain</span><span class="tag">Groq</span><span class="tag">Tavily</span><span class="tag">Streamlit</span><div class="card-act"><span class="btn off" aria-disabled="true">Demo <span class="badge">soon</span></span><a class="btn" href="https://github.com/prajwal2709/AI-Wedding_Planner" target="_blank" rel="noopener">Code</a></div></div>
+<article class="panel proj"><div class="thumb rag-preview"><img class="shot-light" src="images/multimodal-rag-light.png" alt="DocuLens PDF workspace with source pages and evidence cards, light theme"><img class="shot-dark" src="images/multimodal-rag-dark.png" alt="DocuLens PDF workspace with source pages and evidence cards, dark theme"></div><h3 class="px">Multimodal RAG for PDFs</h3><p>Extracts text and embedded figures with PyMuPDF. Sentence Transformers create text embeddings; CLIP creates 512-dimensional image embeddings. ChromaDB keeps separate text and image collections (<code>pdf_text_v2</code> and <code>pdf_images_v2</code>) with document and page metadata for retrieval and citations.</p><p>The current citation-association test file passed 14 tests in this update; an earlier recorded run passed six.</p><span class="tag">PyMuPDF</span><span class="tag">Sentence Transformers</span><span class="tag">CLIP · 512D</span><span class="tag">ChromaDB</span><span class="tag">OpenRouter embeddings</span><div class="card-act"><a class="btn" href="https://github.com/prajwal2709/MultiModal_Rag" target="_blank" rel="noopener noreferrer">Repository</a></div></article>
+<article class="panel proj"><div class="thumb" role="img" aria-label="GraphRAG project, in progress">PDFs · Neo4j · graph retrieval</div><h3 class="px">GraphRAG <span class="status">In progress</span></h3><p>Exploring PDF ingestion and chunking with Neo4j as a graph store for document retrieval. Graph extraction, graph-based retrieval, and evaluation are still in progress; they are not presented as completed features.</p><span class="tag">Python</span><span class="tag">Neo4j</span><span class="tag">PDF ingestion</span></article>
+<article class="panel proj"><div class="thumb" role="img" aria-label="AI Voice Study Mentor project">Speech → retrieval → speech</div><h3 class="px">AI Voice Study Mentor</h3><p>FastAPI accepts voice or text questions. faster-whisper transcribes audio; Sentence Transformers and ChromaDB retrieve study material; an OpenRouter-compatible model drafts an answer; Sarvam AI TTS produces speech. Code lists English, Hindi, and Marathi. Language quality depends on the models and services.</p><span class="tag">FastAPI</span><span class="tag">faster-whisper</span><span class="tag">ChromaDB</span><span class="tag">Sentence Transformers</span><span class="tag">OpenRouter</span><span class="tag">Sarvam AI TTS</span><div class="card-act"><a class="btn" href="https://github.com/prajwal2709/ai-voice-study-mentor" target="_blank" rel="noopener noreferrer">Repository</a></div></article>
+<article class="panel proj"><div class="thumb"><img src="images/crop-disease-detection.png" alt="Crop Doctor app showing leaf capture, disease analysis, and treatment steps"></div><h3 class="px">Crop Disease Detection</h3><p>PlantDoc-based crop disease classification with MobileNetV2, a React frontend, and a Flask model-serving backend. Previously reported test accuracy: 95.05%.</p><span class="tag">PlantDoc</span><span class="tag">TensorFlow</span><span class="tag">MobileNetV2</span><span class="tag">Flask</span><span class="tag">React</span><div class="card-act"><a class="btn" href="https://github.com/prajwal2709/crop-disease-detection" target="_blank" rel="noopener noreferrer">Repository</a></div></article>
+<article class="panel proj"><div class="thumb" role="img" aria-label="AI Code Corrector project">MERN · OpenAI · Gemini</div><h3 class="px">AI Code Corrector</h3><p>A MERN-stack code-correction project with OpenAI and Gemini integrations. The implementation source was not available in this checkout, so specific correction features are not claimed here.</p><span class="tag">MongoDB</span><span class="tag">Express</span><span class="tag">React</span><span class="tag">Node.js</span><span class="tag">OpenAI</span><span class="tag">Gemini</span></article>
+<article class="panel proj"><div class="thumb" role="img" aria-label="AI Resume Analyser and Job Finder project">React · Vite · TypeScript</div><h3 class="px">AI Resume Analyser &amp; Job Finder</h3><p>Listed as a React, Vite, TypeScript, and Tailwind CSS project. Its implementation was not available in this checkout, so specific analysis and job-matching features are not asserted.</p><span class="tag">React</span><span class="tag">Vite</span><span class="tag">TypeScript</span><span class="tag">Tailwind CSS</span></article>
+<article class="panel proj"><div class="thumb"><img src="images/ai-wedding-planner.png" alt="Multi-Agent Wedding Planner app with wedding brief and planning dashboard"></div><h3 class="px">AI Wedding Planner</h3><p>A Streamlit planning workspace with a LangChain planner agent and two Tavily research agents. It combines wedding preferences with vendor and venue research into recommendations and a downloadable Markdown brief.</p><span class="tag">LangChain</span><span class="tag">Groq</span><span class="tag">Tavily</span><span class="tag">Streamlit</span><div class="card-act"><a class="btn" href="https://github.com/prajwal2709/AI-Wedding_Planner" target="_blank" rel="noopener noreferrer">Repository</a></div></article>
 </div>
 </section>
 
 <div class="divider" aria-hidden="true"></div>
 <section id="oss" class="reveal">
-<h2 class="px">Achievement unlocked</h2>
+<h2 class="px">Verified merged contributions</h2>
 <div class="grid">
-<a class="ach" href="https://github.com/kestra-io/plugin-azure/pull/357" target="_blank" rel="noopener"><i></i><div><div class="px" style="font-size:12px;line-height:1.7">Kestra plugin-azure · merged</div>Added cancellation support for Azure AI Foundry agent runs (PR #357)</div></a>
-<a class="ach" href="https://github.com/kestra-io/plugin-neo4j/pull/239" target="_blank" rel="noopener"><i></i><div><div class="px" style="font-size:12px;line-height:1.7">Kestra plugin-neo4j · merged</div>Added a polling trigger that runs Neo4j queries on a schedule (PR #239)</div></a>
+<a class="ach" href="https://github.com/kestra-io/plugin-azure/pull/357" target="_blank" rel="noopener noreferrer"><i></i><div><div class="px" style="font-size:12px;line-height:1.7">Kestra plugin-azure · merged</div>Added cancellation support for Azure AI Foundry agent runs · PR #357</div></a>
+<a class="ach" href="https://github.com/kestra-io/plugin-neo4j/pull/239" target="_blank" rel="noopener noreferrer"><i></i><div><div class="px" style="font-size:12px;line-height:1.7">Kestra plugin-neo4j · merged</div>Added a polling trigger for scheduled Neo4j queries · PR #239</div></a>
 </div>
 </section>
 
@@ -204,17 +224,17 @@ header:before{content:"";position:absolute;inset:0 -6% auto;height:75%;backgroun
 <section id="stack" class="reveal">
 <h2 class="px">Inventory</h2>
 <div class="inv">
-<div class="panel proj"><h3 class="px">AI / ML</h3><span class="tag">TensorFlow</span><span class="tag">CNNs</span><span class="tag">RAG</span><span class="tag">LangChain</span><span class="tag">Pandas</span><span class="tag">NumPy</span></div>
-<div class="panel proj"><h3 class="px">Backend</h3><span class="tag">Python</span><span class="tag">Java</span><span class="tag">FastAPI</span><span class="tag">Flask</span><span class="tag">Spring Boot</span></div>
-<div class="panel proj"><h3 class="px">Frontend + Data</h3><span class="tag">React</span><span class="tag">MySQL</span><span class="tag">ChromaDB</span><span class="tag">SQL</span></div>
-<div class="panel proj"><h3 class="px">Tools</h3><span class="tag">Git</span><span class="tag">GitHub</span><span class="tag">Jupyter</span><span class="tag">VS Code</span></div>
+<div class="panel proj"><h3 class="px">AI / Retrieval</h3><span class="tag">TensorFlow</span><span class="tag">MobileNetV2</span><span class="tag">RAG</span><span class="tag">CLIP</span><span class="tag">Sentence Transformers</span><span class="tag">LangChain</span><span class="tag">OpenRouter</span><span class="tag">Pandas</span><span class="tag">NumPy</span></div>
+<div class="panel proj"><h3 class="px">Backend</h3><span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">Flask</span><span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Node.js</span><span class="tag">Express</span></div>
+<div class="panel proj"><h3 class="px">Frontend + Data</h3><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Vite</span><span class="tag">Tailwind CSS</span><span class="tag">MongoDB</span><span class="tag">MySQL</span><span class="tag">ChromaDB</span><span class="tag">Neo4j</span><span class="tag">SQL</span></div>
+<div class="panel proj"><h3 class="px">Tools + Services</h3><span class="tag">Groq</span><span class="tag">Tavily</span><span class="tag">Sarvam AI TTS</span><span class="tag">Git</span><span class="tag">GitHub</span><span class="tag">Jupyter</span><span class="tag">VS Code</span></div>
 </div>
 </section>
 
 <div class="divider" aria-hidden="true"></div>
 <section id="about" class="reveal">
 <h2 class="px">Player profile</h2>
-<div class="panel proj" style="font-size:26px;line-height:1.3">I like turning messy data into tools that actually help people. Right now I’m most excited by retrieval-augmented generation, multimodal AI that understands both text and images, and AI agents that coordinate useful work. I enjoy building practical AI, from spotting crop diseases in leaf photos to chatting with documents, and contributing to open source. Always curious about what to build next, and looking for AI/ML engineering roles.<br><span class="tag">RAG</span><span class="tag">Multimodal AI</span><span class="tag">Deep learning</span><span class="tag">AI agents</span><span class="tag">Open source</span><span class="tag">Hydro-informatics</span></div>
+<div class="panel proj" style="font-size:26px;line-height:1.3"><p><strong>Education:</strong> B.E. in Computer Engineering, Smt. Kashibai Navale College of Engineering, Pune · Jul 2022–Jun 2026 · CGPA 8.02.</p><p>I like turning messy data into tools that actually help people. Right now I’m most excited by retrieval-augmented generation, multimodal AI that understands both text and images, and AI agents that coordinate useful work. I enjoy building practical AI, from spotting crop diseases in leaf photos to chatting with documents, and contributing to open source. Always curious about what to build next, and looking for AI/ML engineering roles.</p><span class="tag">RAG</span><span class="tag">Multimodal AI</span><span class="tag">Deep learning</span><span class="tag">AI agents</span><span class="tag">Open source</span><span class="tag">Hydro-informatics</span></div>
 </section>
 </main>
 
@@ -225,6 +245,7 @@ header:before{content:"";position:absolute;inset:0 -6% auto;height:75%;backgroun
 <div style="margin-top:20px;opacity:.9">Pune, India</div></div>
 </footer>
 
+<script src="assistant.js"></script>
 <script>
 (function(){
 var root=document.documentElement,sky=document.getElementById('sky');
@@ -236,9 +257,7 @@ function burst(x,y){var cols=['#5fa83e','#8b5a2e','#ffd84a','#fff'];for(var i=0;
 var blk=document.getElementById('blk');
 function hit(){var r=blk.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2)}
 blk.onclick=hit;blk.onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();hit()}};
-var A=[[/crop|disease|plantdoc|leaf/,"Crop Disease Detection identifies diseases from leaf images using a PlantDoc-trained MobileNetV2 model. It has a React frontend, Flask API, and 95.05% test accuracy."],[/wedding|planner|tavily/,"The AI Wedding Planner is a Streamlit workspace with a LangChain planner agent and two Tavily research agents. It creates a tailored wedding plan that can be downloaded as Markdown."],[/rag|multimodal|pdf|clip/,"Multimodal RAG pulls text and images out of PDFs, embeds them with Sentence Transformers and CLIP, stores them in ChromaDB, and answers questions via OpenRouter using the retrieved context."],[/open|kestra|source|pr/,"Open source: I have two merged pull requests to Kestra plugins. One adds cancellation support for Azure AI Foundry agent runs, and the other adds a polling trigger to the Neo4j plugin."],[/stack|tech|tool|skill|language/,"Python, Java and SQL. TensorFlow, LangChain, FastAPI, Flask, Spring Boot and React. ChromaDB and MySQL for data. Git and GitHub for workflow."],[/contact|hire|email|job|role/,"I’m open to AI/ML engineering roles. Use the Email button at the bottom of the page."]];
 var log=document.getElementById('log'),q=document.getElementById('q'),busy=false;
-function ask(t){if(!t||busy)return;busy=true;var m=document.createElement('p');m.className='me';m.textContent='> '+t;log.appendChild(m);var ans="Try asking about crop disease detection, the wedding planner, RAG, open source or my tech stack.";for(var i=0;i<A.length;i++){if(A[i][0].test(t.toLowerCase())){ans=A[i][1];break}}var p=document.createElement('p');log.appendChild(p);var k=0;(function type(){p.textContent=ans.slice(0,k);log.scrollTop=log.scrollHeight;if(k++<=ans.length)setTimeout(type,14);else busy=false})()}
 document.getElementById('send').onclick=function(){var t=q.value.trim();q.value='';ask(t)};
 q.onkeydown=function(e){if(e.key==='Enter')document.getElementById('send').click()};
 document.querySelectorAll('.topic').forEach(function(b){b.onclick=function(e){ask(b.getAttribute('data-q'));burst(e.clientX,e.clientY)}});
@@ -257,6 +276,7 @@ function beep(f,d,ty){if(!soundOn)return;try{ac=ac||new(window.AudioContext||win
 var snd=document.getElementById('snd');
 snd.onclick=function(){soundOn=!soundOn;snd.textContent='Sound: '+(soundOn?'on':'off');snd.setAttribute('aria-pressed',soundOn);beep(990,.12)};
 document.addEventListener('click',function(e){var t=e.target;if(t.closest('#blk'))beep(160,.12,'sawtooth');else if(t.closest('.slot,.topic,.go,.tbtn,.drop'))beep(660,.07)});
+var isGithubPages=location.hostname==='prajwal2709.github.io';
 var STATS_API=(location.hostname==='localhost'||location.hostname==='127.0.0.1')?'http://127.0.0.1:8000':'/api';
 var visitorId='';
 function newVisitorId(){if(window.crypto&&crypto.randomUUID)return crypto.randomUUID();return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,function(c){var r=Math.random()*16|0;return(c==='x'?r:(r&3|8)).toString(16)})}
@@ -264,10 +284,11 @@ try{visitorId=localStorage.getItem('portfolioVisitorId')||newVisitorId();localSt
 var watchCount=document.getElementById('watchCount'),heartCount=document.getElementById('heartCount'),heartBtn=document.getElementById('heartBtn'),heartLabel=document.getElementById('heartLabel');
 function showStats(s){watchCount.textContent=s.active_visitors;heartCount.textContent=s.appreciations;heartBtn.classList.toggle('liked',!!s.appreciated);heartBtn.setAttribute('aria-pressed',!!s.appreciated);heartLabel.textContent=s.appreciated?'Thanks for the love!':'Send appreciation'}
 function heartbeat(){fetch(STATS_API+'/presence',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({visitor_id:visitorId})}).then(function(r){if(!r.ok)throw new Error('stats unavailable');return r.json()}).then(showStats).catch(function(){watchCount.textContent='—';if(heartCount.textContent==='—')heartLabel.textContent='Stats unavailable'})}
-heartbeat();setInterval(heartbeat,30000);
-heartBtn.onclick=function(){if(heartBtn.disabled)return;heartBtn.disabled=true;fetch(STATS_API+'/appreciation',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({visitor_id:visitorId,appreciated:heartBtn.getAttribute('aria-pressed')!=='true'})}).then(function(r){if(!r.ok)throw new Error('appreciation unavailable');return r.json()}).then(showStats).catch(function(){heartLabel.textContent='Could not send — try again'}).finally(function(){heartBtn.disabled=false})};
-function scripted(t,p){var a="Try asking about crop disease detection, the wedding planner, RAG, open source or my tech stack.";for(var i=0;i<A.length;i++)if(A[i][0].test(t.toLowerCase())){a=A[i][1];break}var k=0;(function ty(){p.textContent=a.slice(0,k);log.scrollTop=log.scrollHeight;if(k++<=a.length)setTimeout(ty,14);else busy=false})()}
-function ask(t){if(!t||busy)return;busy=true;var m=document.createElement('p');m.className='me';m.textContent='> '+t;log.appendChild(m);var p=document.createElement('p');log.appendChild(p);scripted(t,p)}
+if(isGithubPages){document.getElementById('statsNotice').hidden=false;heartBtn.disabled=true;heartBtn.title='Visitor counts and appreciation need the Cloudflare Worker backend.';heartLabel.textContent='Unavailable on GitHub Pages'}else{heartbeat();setInterval(heartbeat,30000);heartBtn.onclick=function(){if(heartBtn.disabled)return;heartBtn.disabled=true;fetch(STATS_API+'/appreciation',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({visitor_id:visitorId,appreciated:heartBtn.getAttribute('aria-pressed')!=='true'})}).then(function(r){if(!r.ok)throw new Error('appreciation unavailable');return r.json()}).then(showStats).catch(function(){heartLabel.textContent='Could not send — try again'}).finally(function(){heartBtn.disabled=false})};}
+function escapeHtml(text){return text.replace(/[&<>"']/g,function(ch){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]})}
+function linkedAnswer(text){return escapeHtml(text).replace(/\b(https:\/\/[^\s<]+|mailto:[^\s<]+)/g,function(url){var clean=url.replace(/[),.;]+$/,'');var suffix=url.slice(clean.length);return '<a href="'+clean+'" target="_blank" rel="noopener noreferrer">'+clean+'</a>'+suffix}).replace(/\n/g,'<br>')}
+function showFollowups(items){var row=document.createElement('div');row.className='followups';items.forEach(function(question){var button=document.createElement('button');button.type='button';button.className='followup';button.textContent=question;button.onclick=function(){ask(question)};row.appendChild(button)});log.appendChild(row)}
+function ask(t){if(!t||busy)return;busy=true;var m=document.createElement('p');m.className='me';m.textContent='> '+t;log.appendChild(m);var reply=window.PortfolioAssistant.answer(t),p=document.createElement('p');p.className='assistant-answer';log.appendChild(p);var k=0;(function type(){p.textContent=reply.text.slice(0,k);log.scrollTop=log.scrollHeight;if(k<reply.text.length){k+=3;setTimeout(type,12)}else{p.innerHTML=linkedAnswer(reply.text);showFollowups(reply.followups);busy=false;log.scrollTop=log.scrollHeight}})()}
 var hb=document.getElementById('hb'),mn=document.getElementById('menu');
 mn.onclick=function(){var o=hb.classList.toggle('open');mn.setAttribute('aria-expanded',o)};
 document.querySelectorAll('.slot').forEach(function(a){a.addEventListener('click',function(){hb.classList.remove('open');mn.setAttribute('aria-expanded','false')})});
