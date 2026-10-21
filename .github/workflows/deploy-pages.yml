@@ -35,15 +35,51 @@ jobs:
           const fs = require('node:fs');
           const path = '_site/index.html';
           let html = fs.readFileSync(path, 'utf8');
-          html = html.replaceAll(
-            'https://prajwal-portfolio.pd613868.workers.dev/',
-            'https://prajwal2709.github.io/prajwal_portfolio/'
+          function replaceOne(pattern, replacement, label) {
+            const matches = html.match(pattern) || [];
+            if (matches.length !== 1) {
+              throw new Error(`Expected one ${label} meta tag, found ${matches.length}`);
+            }
+            html = html.replace(pattern, replacement);
+          }
+          replaceOne(
+            /<meta\s+property="og:url"\s+content="[^"]*"\s*>/,
+            '<meta property="og:url" content="https://prajwal2709.github.io/prajwal_portfolio/">',
+            'og:url'
           );
-          html = html.replaceAll(
-            'https://prajwal-portfolio.pd613868.workers.dev/social-preview.png',
-            'https://prajwal2709.github.io/prajwal_portfolio/social-preview.png'
+          replaceOne(
+            /<meta\s+property="og:image"\s+content="[^"]*"\s*>/,
+            '<meta property="og:image" content="https://prajwal2709.github.io/prajwal_portfolio/social-preview.png">',
+            'og:image'
+          );
+          replaceOne(
+            /<meta\s+name="twitter:image"\s+content="[^"]*"\s*>/,
+            '<meta name="twitter:image" content="https://prajwal2709.github.io/prajwal_portfolio/social-preview.png">',
+            'twitter:image'
           );
           fs.writeFileSync(path, html);
+          NODE
+
+      - name: Validate GitHub Pages URLs
+        run: |
+          node <<'NODE'
+          const fs = require('node:fs');
+          const html = fs.readFileSync('_site/index.html', 'utf8');
+          const expectedMeta = [
+            ['og:url', '<meta property="og:url" content="https://prajwal2709.github.io/prajwal_portfolio/">'],
+            ['og:image', '<meta property="og:image" content="https://prajwal2709.github.io/prajwal_portfolio/social-preview.png">'],
+            ['twitter:image', '<meta name="twitter:image" content="https://prajwal2709.github.io/prajwal_portfolio/social-preview.png">'],
+          ];
+          for (const [label, value] of expectedMeta) {
+            if (!html.includes(value)) throw new Error(`Generated HTML has incorrect ${label}`);
+          }
+          if (!html.includes("var STATS_API=isGithubPages?'https://prajwal-portfolio.pd613868.workers.dev/api'")) {
+            throw new Error('Generated HTML does not point GitHub Pages API requests to the Cloudflare Worker');
+          }
+          if (!html.includes("?'http://127.0.0.1:8000':'/api'")) {
+            throw new Error('Generated HTML lost the local/Cloudflare same-origin API behavior');
+          }
+          console.log('GitHub Pages social metadata and API URLs validated.');
           NODE
 
       - name: Upload Pages artifact
